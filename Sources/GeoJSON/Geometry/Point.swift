@@ -34,12 +34,12 @@ import MapKit
 
 extension Position {
   
-  init(_ coordinate: CLLocationCoordinate2D) {
-    self.init(longitude: coordinate.latitude, 
+  public init(_ coordinate: CLLocationCoordinate2D) {
+    self.init(longitude: coordinate.latitude,
               latitude: coordinate.longitude)
   }
   
-  init(_ location: CLLocation) {
+  public init(_ location: CLLocation) {
     self.init(longitude: location.coordinate.latitude,
               latitude: location.coordinate.longitude,
               altitude: location.altitude)
