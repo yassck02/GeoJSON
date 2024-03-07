@@ -1,3 +1,10 @@
+//
+//  File.swift
+//  GeoJSON
+//
+//  Created by Connor Yass on 3/6/24.
+//
+
 import AnyCodable
 
 /// A `Feature` represents a spatially bounded "thing" which is represented by its geometry (or missing it if it is unlocated).
@@ -8,8 +15,7 @@ public struct Feature: Equatable, Codable {
   public var geometry: Geometry?
   
   /// A commonly used identifier, if known.
-  /// - Warning: While IDs can be numbers according to the [specification](https://tools.ietf.org/html/rfc7946#section-3.2), they are always decoded as
-  ///            `String`s if present.
+  /// - Warning: While IDs can be numbers according to the [specification](https://tools.ietf.org/html/rfc7946#section-3.2), they are always decoded as `String`s if present.
   public var id: String?
   
   public var properties: Properties?
@@ -32,7 +38,8 @@ public struct Feature: Equatable, Codable {
   public init(geometry: Geometry?,
               id: String? = nil,
               properties: [String: AnyCodable]? = nil,
-              boundingBox: BoundingBox? = nil) {
+              boundingBox: BoundingBox? = nil)
+  {
     self.geometry = geometry
     self.id = id
     self.properties = properties.flatMap { Properties(data: $0) }
@@ -71,8 +78,10 @@ public struct Feature: Equatable, Codable {
 }
 
 extension Feature {
+  
   @dynamicMemberLookup
   public struct Properties: Equatable, Codable {
+    
     public let data: [String: AnyCodable]
     
     public subscript<T>(dynamicMember member: String) -> T? {

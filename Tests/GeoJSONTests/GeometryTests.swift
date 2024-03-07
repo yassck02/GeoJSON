@@ -1,3 +1,10 @@
+//
+//  File.swift
+//  GeoJSON
+//
+//  Created by Connor Yass on 3/6/24.
+//
+
 import XCTest
 import GeoJSON
 
@@ -73,7 +80,7 @@ final class GeometryTests: XCTestCase {
   }
   
   func testEncodeLineString() throws {
-    let ls = try LineString(coordinates: [
+    let ls = LineString(coordinates: [
       Position(longitude: 1.0, latitude: 1.0),
       Position(longitude: 2.0, latitude: 2.0)
     ])
@@ -81,7 +88,7 @@ final class GeometryTests: XCTestCase {
   }
   
   func testEncodeMultiLineString() throws {
-    let mls = try MultiLineString(coordinates: [
+    let mls = MultiLineString(coordinates: [
       LineString(coordinates: [
         Position(longitude: 1.0, latitude: 1.0),
         Position(longitude: 2.0, latitude: 2.0)

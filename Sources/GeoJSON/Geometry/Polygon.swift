@@ -1,3 +1,10 @@
+//
+//  File.swift
+//  GeoJSON
+//
+//  Created by Connor Yass on 3/6/24.
+//
+
 /// A collection of `LinearRing`s. The first ring is expected to be the exterior ring, any others are interior rings. 
 /// The exterior ring bounds the surface, and the interior rings (if present) bound holes within the surface.
 public struct Polygon: Equatable, Codable {
@@ -32,18 +39,14 @@ extension Polygon {
     
     public let coordinates: [Position]
     
-    public enum Error: Swift.Error {
-      /// A LinearRing consists of four or more positions.
-      case invalidCoordinateCount
-      /// The first and last position in a LinearRing must be identical.
-      case openRing
-    }
-    
     /// - Throws: `LinearRing.Error`
     public init(coordinates: [Position]) throws {
-      guard coordinates.count >= 4 else { throw Error.invalidCoordinateCount }
-      guard coordinates.first == coordinates.last else { throw Error.openRing }
-      
+      guard coordinates.count >= 4 else {
+        throw GeoJSONError.invalidCoordinateCount
+      }
+      guard coordinates.first == coordinates.last else {
+        throw GeoJSONError.openRing
+      }
       self.coordinates = coordinates
     }
     

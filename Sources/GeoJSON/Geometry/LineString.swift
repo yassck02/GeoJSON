@@ -1,16 +1,16 @@
+//
+//  File.swift
+//  GeoJSON
+//
+//  Created by Connor Yass on 3/6/24.
+//
+
 /// A string of two or more `Position`s.
 public struct LineString: Equatable, Codable {
   
   public var coordinates: [Position]
   
-  public enum Error: Swift.Error {
-    /// A LineString consists of two or more positions.
-    case invalidCoordinateCount
-  }
-  
-  /// - Throws: `LineString.Error`
-  public init(coordinates: [Position]) throws {
-    guard coordinates.count >= 2 else { throw Error.invalidCoordinateCount }
+  public init(coordinates: [Position]) {
     self.coordinates = coordinates
   }
   

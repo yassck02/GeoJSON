@@ -1,3 +1,10 @@
+//
+//  File.swift
+//  GeoJSON
+//
+//  Created by Connor Yass on 3/6/24.
+//
+
 public enum Geometry: Equatable, Codable {
   
   /// A single point, containing only the coordinates of a `Position`.
@@ -17,10 +24,6 @@ public enum Geometry: Equatable, Codable {
   /// of one `Point` and one `LineString`. Please try and avoid nested `GeometryCollection`s to maximize interopability.
   /// See [RFC7946 Section 3.1.8](https://tools.ietf.org/html/rfc7946#section-3.1.8) for more information.
   case geometryCollection(GeometryCollection)
-  
-  public enum Error: Swift.Error {
-    case unknownGeometryType
-  }
   
   private enum CodingKeys: String, CodingKey {
     case type
@@ -47,7 +50,7 @@ public enum Geometry: Equatable, Codable {
     case "GeometryCollection":
       self = .geometryCollection(try container.decode(GeometryCollection.self, forKey: .geometries))
     default:
-      throw Error.unknownGeometryType
+      throw GeoJSONError.unknownGeometryType
     }
   }
   

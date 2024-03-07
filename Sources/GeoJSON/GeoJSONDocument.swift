@@ -1,12 +1,15 @@
+//
+//  File.swift
+//  GeoJSON
+//
+//  Created by Connor Yass on 3/6/24.
+//
+
 /// A GeoJSON document consisting of either a `Feature` or a `FeatureCollection`.
 public enum GeoJSONDocument: Equatable, Codable {
   
   case feature(Feature)
   case featureCollection(FeatureCollection)
-  
-  public enum Error: Swift.Error {
-    case unexpectedRootType
-  }
   
   private enum CodingKeys: String, CodingKey {
     case type
@@ -21,7 +24,7 @@ public enum GeoJSONDocument: Equatable, Codable {
     case "FeatureCollection":
       self = .featureCollection(try FeatureCollection(from: decoder))
     default:
-      throw Error.unexpectedRootType
+      throw GeoJSONError.unexpectedRootType
     }
   }
   

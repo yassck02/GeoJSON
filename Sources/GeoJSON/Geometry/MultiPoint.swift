@@ -1,3 +1,10 @@
+//
+//  File.swift
+//  GeoJSON
+//
+//  Created by Connor Yass on 3/6/24.
+//
+
 /// Several `Position`s.
 public struct MultiPoint: Equatable, Codable {
   

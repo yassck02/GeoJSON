@@ -1,3 +1,10 @@
+//
+//  File.swift
+//  GeoJSON
+//
+//  Created by Connor Yass on 3/6/24.
+//
+
 /// A single point, containing only the coordinates of a `Position`.
 public struct Point: Equatable, Codable {
   
@@ -21,3 +28,21 @@ public struct Point: Equatable, Codable {
     try container.encode(coordinates)
   }
 }
+
+#if canImport(MapKit)
+import MapKit
+
+extension Position {
+  
+  init(_ coordinate: CLLocationCoordinate2D) {
+    self.init(longitude: coordinate.latitude, 
+              latitude: coordinate.longitude)
+  }
+  
+  init(_ location: CLLocation) {
+    self.init(longitude: location.coordinate.latitude,
+              latitude: location.coordinate.longitude,
+              altitude: location.altitude)
+  }
+}
+#endif // canImport(MapKit)

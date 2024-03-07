@@ -1,7 +1,17 @@
+//
+//  File.swift
+//  GeoJSON
+//
+//  Created by Connor Yass on 3/6/24.
+//
+
 /// A collection of `Feature`s.
 public struct FeatureCollection: Equatable, Codable {
+  
   let type = "FeatureCollection"
+  
   public var features: [Feature]
+  
   public var boundingBox: BoundingBox?
   
   // This is defined explicitly to silence the warning about `type` having a static value above.

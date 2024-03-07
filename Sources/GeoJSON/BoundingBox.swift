@@ -1,18 +1,21 @@
-/// Information on the coordinate range for other GeoJSON objects. Contains two `Position`s which denote the most southwesterly and most northeasterly
-/// points of the object's geometry.
+//
+//  File.swift
+//  GeoJSON
+//
+//  Created by Connor Yass on 3/6/24.
+//
+
+/// Information on the coordinate range for other GeoJSON objects. Contains two `Position`s which denote the 
+/// most southwesterly and most northeasterly points of the object's geometry.
 /// See [RFC9746 Section 5](https://tools.ietf.org/html/rfc7946#section-5) for more information.
 public struct BoundingBox: Equatable, Codable {
+  
   public var southWesterly: Position
   public var northEasterly: Position
   
   public init(southWesterly: Position, northEasterly: Position) {
     self.southWesterly = southWesterly
     self.northEasterly = northEasterly
-  }
-  
-  public enum Error: Swift.Error {
-    /// A `BoundingBox` is expected to contain four or six values.
-    case unexpectedValueCount
   }
   
   public init(from decoder: Decoder) throws {
@@ -31,7 +34,7 @@ public struct BoundingBox: Equatable, Codable {
                                     latitude: try container.decode(Double.self),
                                     altitude: try container.decode(Double.self))
     default:
-      throw Error.unexpectedValueCount
+      throw GeoJSONError.unexpectedValueCount
     }
   }
   
@@ -56,6 +59,7 @@ public struct BoundingBox: Equatable, Codable {
 
 // See [RFC7946 Section 5.3](https://tools.ietf.org/html/rfc7946#section-4).
 extension BoundingBox {
+  
   /// A bounding box that contains the North Pole. Viewed on a globe, this bounding box approximates a spherical cap bounded by the minimum latitude circle.
   public static func containsNorthPole(minimumLatitude: Double) -> BoundingBox {
     BoundingBox(southWesterly: .init(longitude: -180.0, latitude: minimumLatitude),
@@ -69,15 +73,13 @@ extension BoundingBox {
   }
   
   /// A bounding box that just touches the North Pole and forms a slice of an approximate spherical cap when viewed on a globe.
-  public static func touchesNorthPole(westLongitude: Double, minimumLatitude: Double, eastLongitude: Double)
-  -> BoundingBox {
+  public static func touchesNorthPole(westLongitude: Double, minimumLatitude: Double, eastLongitude: Double) -> BoundingBox {
     BoundingBox(southWesterly: .init(longitude: westLongitude, latitude: minimumLatitude),
                 northEasterly: .init(longitude: eastLongitude, latitude: 90.0))
   }
   
   /// A bounding box that just touches the South Pole and forms a slice of an approximate spherical cap when viewed on a globe.
-  public static func touchesSouthPole(westLongitude: Double, eastLongitude: Double, maximumLatitude: Double)
-  -> BoundingBox {
+  public static func touchesSouthPole(westLongitude: Double, eastLongitude: Double, maximumLatitude: Double) -> BoundingBox {
     BoundingBox(southWesterly: .init(longitude: westLongitude, latitude: -90.0),
                 northEasterly: .init(longitude: eastLongitude, latitude: maximumLatitude))
   }

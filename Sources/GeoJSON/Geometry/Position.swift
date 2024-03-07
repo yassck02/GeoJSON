@@ -1,3 +1,10 @@
+//
+//  File.swift
+//  GeoJSON
+//
+//  Created by Connor Yass on 3/6/24.
+//
+
 /// A fundamental geometry construct containing the coordinates of a geographic position and an optional altitude.
 /// See [RFC9746 Section 3.1.1](https://tools.ietf.org/html/rfc7946#section-3.1.1) and
 /// [Section 4](https://tools.ietf.org/html/rfc7946#section-4) for more information.
@@ -10,11 +17,6 @@ public struct Position: Equatable, Codable {
   /// Altitude or elevation in meters above or below the WGS 84 reference ellipsoid. If not set, this `Position` will be interpreted as being at local ground or sea level.
   public var altitude: Double?
   
-  public enum Error: Swift.Error {
-    /// A `Position` is expected to contain exactly two or three values.
-    case unexpectedValueCount
-  }
-  
   public init(longitude: Double, latitude: Double, altitude: Double? = nil) {
     self.longitude = longitude
     self.latitude = latitude
@@ -24,7 +26,7 @@ public struct Position: Equatable, Codable {
   public init(from decoder: Decoder) throws {
     var container = try decoder.unkeyedContainer()
     guard (container.count ?? 0) >= 2 else {
-      throw Error.unexpectedValueCount
+      throw GeoJSONError.unexpectedValueCount
     }
     self.longitude = try container.decode(Double.self)
     self.latitude = try container.decode(Double.self)
@@ -46,7 +48,9 @@ import Foundation
 
 extension Position {
   public var altitudeMeasurement: Measurement<UnitLength>? {
-    altitude.flatMap { Measurement<UnitLength>(value: $0, unit: .meters) }
+    altitude.flatMap {
+      Measurement<UnitLength>(value: $0, unit: .meters)
+    }
   }
 }
 #endif

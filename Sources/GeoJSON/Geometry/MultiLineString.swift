@@ -1,3 +1,10 @@
+//
+//  File.swift
+//  GeoJSON
+//
+//  Created by Connor Yass on 3/6/24.
+//
+
 /// A collection of `LineString`s, each containing two or more `Position`s.
 public struct MultiLineString: Equatable, Codable {
   
