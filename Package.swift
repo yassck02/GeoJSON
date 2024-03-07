@@ -8,15 +8,15 @@ let package = Package(
         .macOS(.v10_13),
         .iOS(.v11),
         .watchOS(.v4),
-        .tvOS(.v11),
+        .tvOS(.v11)
     ],
     products: [
         .library(
             name: "GeoJSON",
-            targets: ["GeoJSON"]),
+            targets: ["GeoJSON"])
     ],
     dependencies: [
-        .package(url: "https://github.com/flight-school/AnyCodable.git", from: "0.2.3"),
+        .package(url: "https://github.com/flight-school/AnyCodable.git", from: "0.2.3")
     ],
     targets: [
         .target(
@@ -24,6 +24,6 @@ let package = Package(
             dependencies: ["AnyCodable"]),
         .testTarget(
             name: "GeoJSONTests",
-            dependencies: ["GeoJSON"]),
+            dependencies: ["GeoJSON"])
     ]
 )
